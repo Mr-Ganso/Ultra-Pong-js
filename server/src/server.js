@@ -1,6 +1,5 @@
 const express = require("express"),
 app = express(),
-onlineRouter = require("./routes/online"),
 path = require("path")
 
 app.set('views', path.join(__dirname, "views"))

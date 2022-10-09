@@ -250,6 +250,8 @@ function tick() {
     else if (bola.posicao.x < -bola.largura)
         j2.gol(j1, cW - bola.posicaoInicial.x - bola.largura)
 
+    overtime = false
+
     //Vitória
     if (j1.pontos >= PONTOS_VITORIA && j1.pontos >= j2.pontos + 2)
         j1.vitoria = true

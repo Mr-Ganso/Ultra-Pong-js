@@ -2,9 +2,9 @@
   "name": "ultra-pong-online",
   "version": "1.0.0",
   "description": "Ultra Pong Online",
-  "main": "server/src/server.js",
+  "main": "server/src/index.js",
   "scripts": {
-    "startdev": "nodemon server/src/server.js"
+    "startdev": "nodemon server/src/index.js"
   },
   "author": "",
   "license": "ISC",

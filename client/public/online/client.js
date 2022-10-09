@@ -9,20 +9,22 @@ canvas.width = cW * canvas.height/cH
 contexto.scale(canvas.width/cW, canvas.height/cH)
 
 document.addEventListener("keydown", function(evento) {
-    socket.emit("keydown", evento.code)
-    })
+    console.log(evento.type)
+    socket.emit("move", {type:evento.type, code:evento.code})
+})
 
 document.addEventListener("keyup", function(evento) {
-    socket.emit("keyup", evento.code)
+    console.log(evento.type)
+    socket.emit("move", {type:evento.type, code:evento.code})
 })
 
 var Objetos, overtime
 
 socket.on("connect",
     console.log("connected"),
-    socket.on("server-info", (overtime1, Objects) => {
-        Objetos = Objects
-        overtime = overtime1
+    socket.on("server-info", (serverInfo) => {
+        overtime = serverInfo[0]
+        Objetos = serverInfo[1]
     }),
     render()
 )
@@ -56,10 +58,6 @@ function render() {
     contexto.fillText(Objetos[0].pontos, cW/3, cH/8)
     contexto.fillText(Objetos[1].pontos, cW/1.5, cH/8)
 }
-
-function getObjetos(){}
-
-function getOvertime(){}
 
 function desenhar() {
     Objetos.map(objeto => {

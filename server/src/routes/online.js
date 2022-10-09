@@ -1,17 +1,38 @@
 const router = require("express").Router(),
-roomsRouter = require("./rooms"),
-server = require("http").createServer(router),
-{Server} = require("socket.io"),
-io = new Server(server)
+[tick, move] = require("../../modules/online server")
 
-router.use("/rooms", roomsRouter)
+//router.use("/rooms", roomsRouter)
 
-router.get("/online", (req, res) => {
-    res.render("Online Game")
-})
+function socketRouter(io) {
+    router.get("/", (req, res) => {
+        res.render("Online Game")
+    })
 
-io.on('connection', (socket) => {
-    console.log('a user connected')
-})
+    io.on('connection', (socket) => {
+        console.log(socket.id + ' connected')
+        socket.on("move", function(evento){console.log(evento)})
+    })
 
-module.exports = router
+    gameLoop()
+
+    var tickLengthMs = 16.6
+    var previousTick = performance.now()
+
+    function gameLoop(){
+        var now = performance.now()
+
+        if (previousTick + tickLengthMs <= now) {
+            previousTick = now
+            io.emit("server-info", tick())
+        }
+
+        if (performance.now() - previousTick < tickLengthMs - 16)
+            return setTimeout(gameLoop)
+        
+        setImmediate(gameLoop)
+    }
+
+    return router
+}
+
+module.exports = socketRouter

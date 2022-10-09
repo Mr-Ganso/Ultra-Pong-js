@@ -9,13 +9,11 @@ canvas.width = cW * canvas.height/cH
 contexto.scale(canvas.width/cW, canvas.height/cH)
 
 document.addEventListener("keydown", function(evento) {
-    console.log(evento.type)
-    socket.emit("move", {type:evento.type, code:evento.code})
+    socket.emit("keydown", evento.code, evento.type)
 })
 
 document.addEventListener("keyup", function(evento) {
-    console.log(evento.type)
-    socket.emit("move", {type:evento.type, code:evento.code})
+    socket.emit("keyup", evento.code, evento.type)
 })
 
 var Objetos, overtime

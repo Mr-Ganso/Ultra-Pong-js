@@ -2,11 +2,7 @@ const canvas = document.getElementById("Ultra Pong"),
 contexto = canvas.getContext("2d") 
 
 //Constantes gerais
-const cH = 735, 
-cW = 1540, 
-VELOCIDADE_INICIAL = 10,
-ACELERACAO_INICIAL = 1,
-PONTOS_VITORIA = 11
+const PONTOS_VITORIA = 11
 
 canvas.height = window.innerHeight * 0.9
 canvas.width = cW * canvas.height/cH
@@ -40,15 +36,15 @@ function box() {
     if ((bola.posicao.y + bola.altura >= cH && bola.velocidade.y > 0) || (bola.posicao.y <= 0 && bola.velocidade.y < 0))
         bola.velocidade.y *= -1
 
-    if(!j1.checarColisao())
-        j2.checarColisao()
+    if(!j1.checarColisao(bola, j1, j2))
+        j2.checarColisao(bola, j1, j2)
 
     //Gols
     if (bola.posicao.x > cW)
-        j1.gol(j2)
+        j1.gol(j2, bola)
 
     else if (bola.posicao.x < -bola.largura)
-        j2.gol(j1, cW - bola.posicaoInicial.x - bola.largura)
+        j2.gol(j1, bola, cW - bola.posicaoInicial.x - bola.largura)
 
     //Desenhar objetos
     j1.desenhar()

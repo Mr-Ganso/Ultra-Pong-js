@@ -15,24 +15,23 @@ bola = new Bola({x: 30, y: 30}, 120, "#EEEEEE")
 
 //Atualizar tela
 function tick() {
+    if ((bola.posicao.y + bola.altura >= cH && bola.velocidade.y > 0) || (bola.posicao.y <= 0 && bola.velocidade.y < 0))
+        bola.velocidade.y *= -1
+
     //Mover Objetos
     j1.mover()
     j2.mover()
     bola.mover()
 
-    //Colisões
-    if ((bola.posicao.y + bola.altura >= cH && bola.velocidade.y > 0) || (bola.posicao.y <= 0 && bola.velocidade.y < 0))
-        bola.velocidade.y *= -1
-
-    if(!j1.checarColisao(bola))
-        j2.checarColisao(bola)
+    if(!j1.checarColisao(bola, j1, j2))
+        j2.checarColisao(bola, j1, j2)
 
     //Gols
     if (bola.posicao.x > cW)
-        j1.gol(j2)
+        j1.gol(j2, bola)
 
     else if (bola.posicao.x < -bola.largura)
-        j2.gol(j1, cW - bola.posicaoInicial.x - bola.largura)
+        j2.gol(j1, bola, cW - bola.posicaoInicial.x - bola.largura)
 
     overtime = false
 
@@ -57,32 +56,30 @@ function tick() {
 
 var overtime, Objetos
 
-function move(evento) {
-    const bool = evento.type === "keydown"
+function move(code = "test", type) {
+    const bool = type === "keydown"
 
-    if (evento.code === 'KeyA') 
+    if (code === 'KeyA') 
         j1.movimento.e = bool
-    if (evento.code  === 'KeyD')
+    if (code  === 'KeyD')
         j1.movimento.d = bool 
-    if (evento.code  === 'KeyW')
+    if (code  === 'KeyW')
         j1.movimento.c = bool 
-    if (evento.code  === 'KeyS')
+    if (code  === 'KeyS')
         j1.movimento.b = bool 
-    if (evento.code  === 'KeyV')
+    if (code  === 'KeyV')
         j1.movimento.super = bool 
 
-    if (evento.code  === 'ArrowLeft')
+    if (code  === 'ArrowLeft')
         j2.movimento.e = bool 
-    if (evento.code  === 'ArrowRight')
+    if (code  === 'ArrowRight')
         j2.movimento.d = bool 
-    if (evento.code  === 'ArrowUp')
+    if (code  === 'ArrowUp')
         j2.movimento.c = bool 
-    if (evento.code  === 'ArrowDown')
+    if (code  === 'ArrowDown')
         j2.movimento.b = bool 
-    if (evento.code  === 'ShiftRight')
+    if (code  === 'ShiftRight')
         j2.movimento.super = bool
-
-    console.log(evento.type)
 }
 
 module.exports = [tick, move]

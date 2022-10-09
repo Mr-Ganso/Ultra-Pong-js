@@ -2,9 +2,7 @@
 const cH = 735, 
 cW = 1540, 
 VELOCIDADE_INICIAL = 10,
-ACELERACAO_INICIAL = 1,
-PONTOS_VITORIA = 11
-
+ACELERACAO_INICIAL = 1
 class Objeto {
     constructor (tamanho, posicao, cor) {
         console.log(this)
@@ -90,7 +88,7 @@ class Raquete extends Objeto {
         this.aceleracao = {x: ACELERACAO_INICIAL, y: ACELERACAO_INICIAL}
     }
 
-    checarColisao(bola, excecao = this.movimento.super) {
+    checarColisao(bola, j1, j2, excecao = this.movimento.super) {
         const THIS_BORDA = this.posicao.x + this.largura,
         BORDA_COLISOR = bola.posicao.x + bola.largura,
         THIS_FUNDO = this.posicao.y + this.altura,
@@ -100,10 +98,10 @@ class Raquete extends Objeto {
             return
 
         if (BORDA_COLISOR >= this.posicao.x && BORDA_COLISOR <= this.posicao.x + bola.velocidade.x + this.velocidade.x)
-            return this === j2 ? this.colidirFrente(bola, j2.posicao.x, cW - j1.posicao.x - j1.largura, j2.posicao.x - bola.largura) : bola.velocidade.x = -VELOCIDADE_INICIAL * 3
+            return this.posicao.x > cW/2 ? this.colidirFrente(bola, j2.posicao.x, cW - j1.posicao.x - j1.largura, j2.posicao.x - bola.largura) : bola.velocidade.x = -VELOCIDADE_INICIAL * 3
 
         if (bola.posicao.x <= THIS_BORDA && bola.posicao.x >= THIS_BORDA + bola.velocidade.x - this.velocidade.x) 
-            return this === j1 ? this.colidirFrente(bola, cW - j1.posicao.x - j1.largura, j2.posicao.x, j1.posicao.x + j1.largura) : bola.velocidade.x = VELOCIDADE_INICIAL * 3
+            return this.posicao.x < cW/2 ? this.colidirFrente(bola, cW - j1.posicao.x - j1.largura, j2.posicao.x, j1.posicao.x + j1.largura) : bola.velocidade.x = VELOCIDADE_INICIAL * 3
     
         return
     }
@@ -130,7 +128,7 @@ class Raquete extends Objeto {
         return true
     }
 
-    gol(outro, posicaoBola = bola.posicaoInicial.x) {
+    gol(outro, bola, posicaoBola = bola.posicaoInicial.x) {
         this.posicao.x = this.posicaoInicial.x
         this.posicao.y = this.posicaoInicial.y
 

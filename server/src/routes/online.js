@@ -10,7 +10,8 @@ function socketRouter(io) {
 
     io.on('connection', (socket) => {
         console.log(socket.id + ' connected')
-        socket.on("move", function(evento){console.log(evento)})
+        socket.on("keydown", move),
+        socket.on("keyup", move)
     })
 
     gameLoop()

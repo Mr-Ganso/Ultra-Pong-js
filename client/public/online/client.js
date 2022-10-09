@@ -29,7 +29,6 @@ socket.on("connect",
 
 function render() {
     requestAnimationFrame(render)
-
     //Desenhar Fundo
     contexto.fillStyle = "#000000" 
     contexto.fillRect(0,0, cW, cH) 

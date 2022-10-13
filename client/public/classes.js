@@ -17,12 +17,10 @@ class Objeto {
 
         this.posicao = {x: this.posicaoInicial.x, y: this.posicaoInicial.y}
         this.cor = cor
-    }    
+    }
 
     desenhar() {
         contexto.fillStyle = this.cor
-        if (this.movimento?.super)
-            contexto.fillStyle = "#FFFF00" 
         contexto.fillRect(this.posicao.x, this.posicao.y, this.largura, this.altura) 
     }
 }

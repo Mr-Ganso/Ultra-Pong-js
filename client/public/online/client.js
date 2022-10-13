@@ -19,10 +19,10 @@ document.addEventListener("keyup", function(evento) {
 var Objetos, overtime
 
 socket.on("connect",
-    console.log("connected"),
-    socket.on("server-info", (serverInfo) => {
+    console.log("Connected to server"),
+    socket.on("server-info", serverInfo => {
         overtime = serverInfo[0]
-        Objetos = serverInfo[1]
+        Objetos = JSON.parse(serverInfo[1])
     }),
     render()
 )
@@ -46,6 +46,7 @@ function render() {
     //Vitória
     vencer()
 
+    //Overtime
     if (overtime) {
         contexto.font = "200px Impact" 
         contexto.fillText ("OVERTIME", 400, cH/2 + 80) 
@@ -61,7 +62,7 @@ function desenhar() {
     Objetos.map(objeto => {
         contexto.fillStyle = objeto.cor
         if (objeto.movimento?.super)
-            contexto.fillStyle = "#FFFF00" 
+            contexto.fillStyle = "#FFFF00"
         contexto.fillRect(objeto.posicao.x, objeto.posicao.y, objeto.largura, objeto.altura) 
     })
 }
@@ -70,7 +71,7 @@ function vencer() {
     Objetos.map(objeto => {
         if (!objeto.vitoria) return
         contexto.font = "300px Impact" 
-        contexto.fillStyle = objeto.cor 
+        contexto.fillStyle = objeto.cor
         contexto.fillText (objeto.nome, cW/6, cH/2 + 130) 
         contexto.fillStyle = "#EEEEEE" 
         contexto.fillText ("WINS", cW/2.75 + 20, cH/2 + 130) 

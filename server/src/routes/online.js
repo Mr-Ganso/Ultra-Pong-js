@@ -25,7 +25,7 @@ function socketRouter(io) {
             socket.on("keydown", move)
             socket.on("keyup", move)
 
-            if (allRooms.get(socket.room).size <= 1) return
+            //if (allRooms.get(socket.room).size <= 1) return
 
             loops.get(socket.room)?.clearInterval()
             states.set(socket.room, init())
@@ -52,7 +52,7 @@ function socketRouter(io) {
             
                 if (code  === 'KeyV' || code === 'ShiftRight')
                     player.movimento.super = bool 
-            }  
+            } 
         })
     })
     return router

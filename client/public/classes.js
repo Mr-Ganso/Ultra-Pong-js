@@ -110,8 +110,6 @@ class Raquete extends Objeto {
         bola.velocidade.x = DIRECAO_BOLA * (THIS_DISTANCIA * 8/2615 - 2955/523) * VELOCIDADE_INICIAL
         bola.posicao.x = BORDA
 
-        console.log("Velocidade da bola: ", bola.velocidade.x)
-
         if (this.movimento.c) {
             bola.velocidade.y = Bola.getAceleracao(DISTANCIA_OUTRO)
             return true

@@ -8,26 +8,26 @@ canvas.height = window.innerHeight * 0.9
 canvas.width = cW * canvas.height/cH
 contexto.scale(canvas.width/cW, canvas.height/cH)
 
-document.addEventListener("keydown", function(evento) {
-    socket.emit("keydown", evento.code, evento.type)
-})
-
-document.addEventListener("keyup", function(evento) {
-    socket.emit("keyup", evento.code, evento.type)
-})
-
-
-
-/*socket.on("connect",
-    console.log("Connected to server"),*/
-    socket.on("server-info", serverInfo => {
-        overtime = serverInfo[0]
-        Objetos = JSON.parse(serverInfo[1])  
-    })
-//)
-
 var Objetos, overtime
-if (Objetos =! undefined) render()
+
+socket.once("init", init)
+
+socket.on("server-info", serverInfo => {
+    overtime = serverInfo[0]
+    Objetos = serverInfo[1]
+})
+
+function init() {
+    document.addEventListener("keydown", function(evento) {
+        socket.emit("keydown", evento.code, evento.type)
+    })
+    
+    document.addEventListener("keyup", function(evento) {
+        socket.emit("keyup", evento.code, evento.type)
+    })
+
+    render()
+}
 
 function render() {
     requestAnimationFrame(render)

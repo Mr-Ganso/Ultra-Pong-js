@@ -19,7 +19,6 @@ function init(){
 
 //Atualizar tela
 function tick(state) {
-    if (!state) return
     
     let bola = state.ball, j1 = state.players[0], j2 = state.players[1]
 
@@ -59,7 +58,7 @@ function tick(state) {
 
     Objetos = [j1, j2, bola]
 
-    return [overtime, JSON.stringify(Objetos)]
+    return [overtime, Objetos]
 }
 
 var overtime, Objetos

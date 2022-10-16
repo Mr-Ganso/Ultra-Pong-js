@@ -25,7 +25,7 @@ function socketRouter(io) {
             socket.on("keydown", move)
             socket.on("keyup", move)
 
-            //if (allRooms.get(socket.room).size <= 1) return
+            if (allRooms.get(socket.room).size < 2) return
 
             loops.get(socket.room)?.clearInterval()
             states.set(socket.room, init())
@@ -33,6 +33,9 @@ function socketRouter(io) {
             loops.get(socket.room).setInterval(function() {
                 io.to(socket.room).volatile.emit("server-info", tick(states.get(socket.room)))
                 }, "","16666666n")
+
+            io.to(socket.room).emit("init")
+        
 
             function move(code, type) {
                 const player = states.get([...socket.rooms][1]).players[socket.number],

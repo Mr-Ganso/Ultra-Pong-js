@@ -15,8 +15,6 @@ class Objeto {
 
         this.posicao = {x: this.posicaoInicial.x, y: this.posicaoInicial.y}
         this.cor = cor
-
-        console.log(this)
     }
 
     desenhar() {

@@ -17,7 +17,7 @@ socket.on("server-info", serverInfo => {
     Objetos = serverInfo[1]
 })
 
-function init() {
+async function init() {
     document.addEventListener("keydown", function(evento) {
         socket.emit("keydown", evento.code, evento.type)
     })
@@ -29,19 +29,20 @@ function init() {
     render()
 }
 
+drawBG()
+
+contexto.fillStyle = "#0000FF"
+contexto.fillRect(5, cH/2 - 75, 20, 150) 
+
+contexto.fillStyle = "#EEEEEE" 
+contexto.font = "100px Impact"
+contexto.fillText(0, cW/3, cH/8)
+contexto.fillText(0, cW/1.5, cH/8)
+
 function render() {
     requestAnimationFrame(render)
 
-    //Desenhar Fundo
-    contexto.fillStyle = "#000000" 
-    contexto.fillRect(0,0, cW, cH) 
-
-    contexto.fillStyle = "#999999"
-    contexto.fillRect(cW/2 - 10, 0, 20, cH) 
-    contexto.fillRect(cW/2 - cW/16 + 5, cH/2 - 10, cW/8 - 10, 20)
-    contexto.fillRect(cW/2 - cW/16, cH/2 - 75, 10, 150)
-    contexto.fillRect(cW/2 + cW/16, cH/2 - 75, -10, 150)
-    contexto.fillStyle = "#EEEEEE"
+    drawBG()
 
     //Desenhar objetos
     desenhar()
@@ -59,6 +60,18 @@ function render() {
     contexto.font = "100px Impact"
     contexto.fillText(Objetos[0].pontos, cW/3, cH/8)
     contexto.fillText(Objetos[1].pontos, cW/1.5, cH/8)
+}
+
+function drawBG() {
+    contexto.fillStyle = "#000000" 
+    contexto.fillRect(0,0, cW, cH) 
+
+    contexto.fillStyle = "#999999"
+    contexto.fillRect(cW/2 - 10, 0, 20, cH) 
+    contexto.fillRect(cW/2 - cW/16 + 5, cH/2 - 10, cW/8 - 10, 20)
+    contexto.fillRect(cW/2 - cW/16, cH/2 - 75, 10, 150)
+    contexto.fillRect(cW/2 + cW/16, cH/2 - 75, -10, 150)
+    contexto.fillStyle = "#EEEEEE"
 }
 
 function desenhar() {

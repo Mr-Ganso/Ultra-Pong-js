@@ -1,6 +1,6 @@
 const router = require("express").Router(),
 {tick, init} = require("../../modules/server"),
-Timer = require("nanotimer")
+Loop = require("accurate-game-loop")
 
 const states = new Map(), loops = new Map()
 var roomTemp;
@@ -27,12 +27,9 @@ function socketRouter(io) {
 
             if (allRooms.get(socket.room).size < 2) return
 
-            loops.get(socket.room)?.clearInterval()
             states.set(socket.room, init())
-            loops.set(socket.room , new Timer())
-            loops.get(socket.room).setInterval(function() {
-                io.to(socket.room).volatile.emit("server-info", tick(states.get(socket.room)))
-                }, "","16666666n")
+            loops.set(socket.room , new Loop(() => {io.to(socket.room).volatile.emit("server-info", tick(states.get(socket.room)))}, 60))
+            loops.get(socket.room).start()
 
             io.to(socket.room).emit("init")
         

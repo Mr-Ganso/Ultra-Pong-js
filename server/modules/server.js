@@ -1,4 +1,4 @@
-const [Raquete, Bola] = require("../../client/public/classes")
+const {Raquete, Bola} = require("../../client/public/classes")
 
 //Constantes gerais
 const cH = 735, 
@@ -7,15 +7,22 @@ PONTOS_VITORIA = 11
 
 var overtime = false
 
-const j1 = new Raquete({x: 20, y: 150}, 5, {e: 0, d: cW/2 - cW/16}, "#0000FF", "P1"),
-j2 = new Raquete({x: 20, y: 150}, cW - 5, {e: cW/2 + cW/16, d: cW}, "#FF0000", "P2"),
-bola = new Bola({x: 30, y: 30}, 120, "#EEEEEE"),
-jogadores = [j1, j2]
+function init(){
+    console.log("game started")
+    return {
+        players: [
+            new Raquete({x: 20, y: 150}, 5, {e: 0, d: cW/2 - cW/16}, "#0000FF", "P1"),
+            new Raquete({x: 20, y: 150}, cW - 5, {e: cW/2 + cW/16, d: cW}, "#FF0000", "P2")],
+        ball : new Bola({x: 30, y: 30}, 120, "#EEEEEE"),
+    }
+}
 
 //Atualizar tela
-function tick(Objetos) {
-    Objetos.push(bola)
+function tick(state) {
+    if (!state) return
     
+    let bola = state.ball, j1 = state.players[0], j2 = state.players[1]
+
     if ((bola.posicao.y + bola.altura >= cH && bola.velocidade.y > 0) || (bola.posicao.y <= 0 && bola.velocidade.y < 0))
         bola.velocidade.y *= -1
 
@@ -55,6 +62,6 @@ function tick(Objetos) {
     return [overtime, JSON.stringify(Objetos)]
 }
 
-var overtime
+var overtime, Objetos
 
-module.exports = tick
+module.exports = {tick, init}

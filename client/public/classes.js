@@ -4,9 +4,7 @@ cW = 1540,
 VELOCIDADE_INICIAL = 10,
 ACELERACAO_INICIAL = 1
 class Objeto {
-    constructor (tamanho, posicao, cor) {
-        console.log(this)
-        
+    constructor (tamanho, posicao, cor) {        
         this.largura = tamanho.x
         this.altura = tamanho.y
         this.posicaoInicial = {x: posicao, y: cH/2 - this.altura/2}
@@ -17,6 +15,8 @@ class Objeto {
 
         this.posicao = {x: this.posicaoInicial.x, y: this.posicaoInicial.y}
         this.cor = cor
+
+        console.log(this)
     }
 
     desenhar() {
@@ -157,4 +157,4 @@ class Raquete extends Objeto {
     }
 }
 
-module.exports = [Raquete, Bola]
+module.exports = {Raquete, Bola}

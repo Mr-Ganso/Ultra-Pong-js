@@ -18,14 +18,29 @@ document.addEventListener("keyup", function(evento) {
 
 var Objetos, overtime
 
+//Desenhar Fundo
+contexto.fillStyle = "#000000" 
+contexto.fillRect(0,0, cW, cH) 
+
+contexto.fillStyle = "#999999"
+contexto.fillRect(cW/2 - 10, 0, 20, cH) 
+contexto.fillRect(cW/2 - cW/16 + 5, cH/2 - 10, cW/8 - 10, 20)
+contexto.fillRect(cW/2 - cW/16, cH/2 - 75, 10, 150)
+contexto.fillRect(cW/2 + cW/16, cH/2 - 75, -10, 150)
+
+contexto.fillStyle = "#0000FF"
+contexto.fillRect(5, cH/2 - 75, 20, 150)
+
 socket.on("connect",
-    console.log("Connected to server"),
-    socket.on("server-info", serverInfo => {
-        overtime = serverInfo[0]
-        Objetos = JSON.parse(serverInfo[1])
-    }),
-    render()
+    console.log("Connected to server")
 )
+
+socket.on("server-info", serverInfo => {
+    overtime = serverInfo[0]
+    Objetos = JSON.parse(serverInfo[1])  
+})
+
+render()
 
 function render() {
     requestAnimationFrame(render)

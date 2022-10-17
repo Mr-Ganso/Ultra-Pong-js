@@ -8,7 +8,7 @@ PONTOS_VITORIA = 11
 var overtime = false
 
 function init(){
-    console.log("game started")
+    console.log("Game started")
     return {
         players: [
             new Raquete({x: 20, y: 150}, 5, {e: 0, d: cW/2 - cW/16}, "#0000FF", "P1"),
@@ -26,9 +26,8 @@ function tick(state) {
         bola.velocidade.y *= -1
 
     //Mover Objetos
-    j1.mover()
-    j2.mover()
-    bola.mover()
+    Raquete.mover()
+    Bola.mover()
 
     if(!j1.checarColisao(bola, j1, j2))
         j2.checarColisao(bola, j1, j2)
@@ -52,8 +51,7 @@ function tick(state) {
     //Overtime
     else if (j1.pontos  === PONTOS_VITORIA - 1 && j2.pontos  === PONTOS_VITORIA - 1 && j1.altura > 111){
         overtime = true
-        j1.overtime()
-        j2.overtime()
+        Raquete.overtime()
     }
 
     Objetos = [j1, j2, bola]

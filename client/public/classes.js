@@ -31,11 +31,17 @@ class Bola extends Objeto {
         this.aceleracao = aceleracao
         if (Math.random() < 0.5)
             this.posicao.x = cW - this.posicao.x - this.largura
+
+        this.constructor.all.push(this)
     }
 
-    mover() {
-        this.posicao.x += this.velocidade.x
-        this.posicao.y += this.velocidade.y
+    static all = []
+
+    static mover() {
+        this.all.map(bola => {
+            bola.posicao.x += bola.velocidade.x
+            bola.posicao.y += bola.velocidade.y
+        })
     }
 
     static getAceleracao(posicao) {
@@ -57,7 +63,10 @@ class Raquete extends Objeto {
         }
         this.nome = nome
         this.pontos = 0
+        this.constructor.all.push(this)
     }
+
+    static all = []
 
     get velocidade() {
         return {
@@ -66,22 +75,24 @@ class Raquete extends Objeto {
         }
     }
 
-    mover() {
-        if (this.movimento.super) {
-            this.aceleracao.x *= 3
-            this.aceleracao.y *= 3.5
-        }  
-
-        if (this.movimento.e)
-            this.posicao.x > this.limites.e ? this.posicao.x -= this.velocidade.x : this.posicao.x = this.limites.e
-        if (this.movimento.d)
-            this.posicao.x < this.limites.d ? this.posicao.x += this.velocidade.x : this.posicao.x = this.limites.d
-        if (this.movimento.c)
-            this.posicao.y > 0 ? this.posicao.y -= this.velocidade.y : this.posicao.y = 0
-        if (this.movimento.b)
-            this.posicao.y < cH - this.altura ? this.posicao.y += this.velocidade.y : this.posicao.y = cH - this.altura
-
-        this.aceleracao = {x: ACELERACAO_INICIAL, y: ACELERACAO_INICIAL}
+    static mover() {
+        this.all.map(raquete => {
+            if (raquete.movimento.super) {
+                raquete.aceleracao.x *= 3
+                raquete.aceleracao.y *= 3.5
+            }  
+    
+            if (raquete.movimento.e)
+                raquete.posicao.x > raquete.limites.e ? raquete.posicao.x -= raquete.velocidade.x : raquete.posicao.x = raquete.limites.e
+            if (raquete.movimento.d)
+                raquete.posicao.x < raquete.limites.d ? raquete.posicao.x += raquete.velocidade.x : raquete.posicao.x = raquete.limites.d
+            if (raquete.movimento.c)
+                raquete.posicao.y > 0 ? raquete.posicao.y -= raquete.velocidade.y : raquete.posicao.y = 0
+            if (raquete.movimento.b)
+                raquete.posicao.y < cH - raquete.altura ? raquete.posicao.y += raquete.velocidade.y : raquete.posicao.y = cH - raquete.altura
+    
+            raquete.aceleracao = {x: ACELERACAO_INICIAL, y: ACELERACAO_INICIAL}
+        })
     }
 
     checarColisao(bola, j1, j2, excecao = this.movimento.super) {
@@ -136,10 +147,13 @@ class Raquete extends Objeto {
         this.pontos++
     }
 
-    overtime() {
-        this.altura -= 0.26
-        this.posicao.y += 0.26
-        this.aceleracao.x = 0
+    static overtime() {
+        this.all.map(raquete => {
+            raquete.altura -= 0.26
+            raquete.posicao.y += 0.26
+            raquete.aceleracao.x = 0
+        })
+        
     }
 
     vencer() {

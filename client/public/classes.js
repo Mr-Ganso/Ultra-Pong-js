@@ -162,7 +162,7 @@ class Raquete extends Objeto {
         contexto.fillText (this.nome, cW/6, cH/2 + 130) 
         contexto.fillStyle = "#EEEEEE" 
         contexto.fillText ("WINS", cW/2.75 + 20, cH/2 + 130) 
-        bola.posicao.y = cH * 2 
+        bola.posicao.y = cH * 2
         bola.posicao.x = cW/2 
     }
 }

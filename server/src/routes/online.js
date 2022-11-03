@@ -6,6 +6,8 @@ const states = new Map(), loops = new Map()
 var roomTemp;
 
 function socketRouter(io) {
+    router.get("/", (req, res) => {res.render("Rooms Page")})
+
     router.get("/:room", (req, res) => {
         res.render("Online Game")
         roomTemp = req.params.room.toString()
@@ -24,6 +26,14 @@ function socketRouter(io) {
 
             socket.on("keydown", move)
             socket.on("keyup", move)
+            socket.on("disconnecting", () => {
+                if (!loops.get(socket.room) || !socket.number) return
+
+                loops.get(socket.room).stop()
+                loops.delete(socket.room)
+                states.delete(socket.room)
+                console.log(`Game on room ${socket.room} terminated`)
+            })
 
             if (allRooms.get(socket.room).size < 2) return
 
@@ -31,8 +41,8 @@ function socketRouter(io) {
             loops.set(socket.room , new Loop(() => {io.to(socket.room).volatile.emit("server-info", tick(states.get(socket.room)))}, 60))
             loops.get(socket.room).start()
 
+
             io.to(socket.room).emit("init")
-        
 
             function move(code, type) {
                 const player = states.get([...socket.rooms][1]).players[socket.number],

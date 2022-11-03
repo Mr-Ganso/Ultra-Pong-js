@@ -49,7 +49,7 @@ function tick(state) {
         j2.vitoria = true
 
     //Overtime
-    else if (j1.pontos  === PONTOS_VITORIA - 1 && j2.pontos  === PONTOS_VITORIA - 1 && j1.altura > 111){
+    else if (j1.pontos  === PONTOS_VITORIA - 1 && j2.pontos  === PONTOS_VITORIA - 1 && j1.altura > 111) {
         overtime = true
         Raquete.overtime()
     }

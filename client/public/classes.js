@@ -3,6 +3,7 @@ const cH = 735,
 cW = 1540, 
 VELOCIDADE_INICIAL = 10,
 ACELERACAO_INICIAL = 1
+
 class Objeto {
     constructor (tamanho, posicao, cor) {        
         this.largura = tamanho.x
@@ -162,9 +163,9 @@ class Raquete extends Objeto {
         contexto.fillText (this.nome, cW/6, cH/2 + 130) 
         contexto.fillStyle = "#EEEEEE" 
         contexto.fillText ("WINS", cW/2.75 + 20, cH/2 + 130) 
-        bola.posicao.y = cH * 2
-        bola.posicao.x = cW/2 
+        Bola.all.map(ball => {
+            ball.posicao.y = cH * 2
+            ball.posicao.x = cW/2 
+        })
     }
 }
-
-module.exports = {Raquete, Bola}

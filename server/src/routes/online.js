@@ -9,15 +9,15 @@ function socketRouter(io) {
     var allRooms = io.sockets.adapter.rooms
 
     router.route('/')
-    .get((req, res) => {res.render("Rooms Page", "")})
+    .get((req, res) => {res.render("Rooms Page", {roomName:"", errorMessage:""})})
     .post((req, res) => {
         const roomName = req.body.room
 
-        if (allRooms.get(roomName) && req.body.submit === "Create Room")
-            return res.render("Rooms Page", roomName)
+        if (allRooms.get(roomName) && req.body.submit === "Create")
+            return res.render("Rooms Page", {roomName, errorMessage: "The room already exists, try joining it"})
 
-        if (!allRooms.get(roomName) && req.body.submit === "Join Room")
-            return res.render("Rooms Page", roomName)
+        if (!allRooms.get(roomName) && req.body.submit === "Join")
+            return res.render("Rooms Page", {roomName, errorMessage: "The room doesn't exist, try creating it"})
 
         res.redirect("/online/" + roomName)
     })

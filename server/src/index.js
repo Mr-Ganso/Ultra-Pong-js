@@ -1,5 +1,3 @@
-const { stringify } = require("querystring")
-
 //modules
 const express = require("express"),
 app = express(),
@@ -24,4 +22,4 @@ app.use("/online", onlineRouter)
 
 
 
-server.listen(7777)
+server.listen(process.env.PORT || 7777)

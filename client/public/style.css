@@ -1,0 +1,144 @@
+@font-face {
+  font-family:fonte;
+  src: url(sacredczarssemital.ttf);
+}
+
+h1{
+     text-align:center;
+     font-family:fonte;
+   }
+
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+
+  min-height: 100vh;
+  background-color: #202631;
+  color: #14fff1;
+  font-family: "Itim", coursive;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.neon {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 64px;
+  color: #14fff1;
+  border: 8px solid #14fff1;
+  padding: 13px 64px;
+  border-radius: 14px;
+  text-shadow: 0 0 8px rgba(196, 252, 44, 0.575), 0 0 29px #14fff1;
+  box-shadow: inset 0 0 32px #14fff1, 0 0 32px #14fff1;
+  position: relative;
+}
+
+.neon::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #14fff1;
+  left: 0;
+  top: 120%;
+
+  transform: perspective(64px) rotateX(40deg) scale(1, 0.35);
+  filter: blur(64px);
+  opacity: 0.7;
+}
+
+.neon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #14fff1;
+  box-shadow: 0 0 128px 32px #14fff1;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.neon:hover::after,
+.neon:focus::after {
+  opacity: 1;
+}
+
+.neon:hover::before,
+.neon:focus::before {
+  opacity: 1;
+}
+
+.neon:hover,
+.neon:focus {
+  color: #202631;
+  text-shadow: none;
+}
+
+
+.neon1 {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 64px;
+  color: #07f807;
+  border: 8px solid #07f807;
+  padding: 14px 64px;
+  border-radius: 14px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 29px #07f807;
+  box-shadow: inset 0 0 32px #07f807, 0 0 32px #07f807;
+  position: relative;
+}
+
+.neon1::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #07f807;
+  left: 0;
+  top: 120%;
+
+  transform: perspective(64px) rotateX(40deg) scale(1, 0.35);
+  filter: blur(64px);
+  opacity: 0.7;
+}
+
+.neon1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #07f807;
+  box-shadow: 0 0 128px 32px #07f807;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 100ms linear;
+}
+
+.neon1:hover::after,
+.neon1:focus::after {
+  opacity: 1;
+}
+
+.neon1:hover::before,
+.neon1:focus::before {
+  opacity: 1;
+}
+
+.neon1:hover,
+.neon1:focus {
+  color:#020a02;
+  text-shadow: none;
+}

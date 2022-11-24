@@ -4,7 +4,8 @@
   "description": "Ultra Pong Online",
   "main": "server/src/index.js",
   "scripts": {
-    "startdev": "nodemon server/src/index.js"
+    "startdev": "nodemon server/src/index.js",
+    "start": "node server/src/index.js"
   },
   "author": "",
   "license": "ISC",
